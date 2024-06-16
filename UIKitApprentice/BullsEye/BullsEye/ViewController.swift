@@ -17,9 +17,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        currentValue = lroundf(slider.value) // slider의 값을 반올림하여 정수로 저장
+        // currentValue = lroundf(slider.value) // slider의 값을 반올림하여 정수로 저장
         // targetValue = Int.random(in: 1...100) // 정수 1에서 100까지 랜덤으로 선택해 저장
-        startNewRound()
+        startNewGame()
     }
     
     // 매개변수 slider 호출
@@ -54,33 +54,60 @@ class ViewController: UIViewController {
         let difference = abs(currentValue - targetValue) // 다른 곳에서 값을 바꾸는 과정을 거칠 필요가 없기 때문에 위의 두 방법과 다르게 var가 아니라 let을 사용
         
         // 점수 계산
-        let points = 100 - difference
+        var points = 100 - difference // 아래 if 문에서 보너스 포인트를 추가하기 때문에 변수로 사용
         
-        // 점수 업데이트
+        // 점수에 따라 알림창 메시지 변경
+        let title: String // 변수를 사용해도 되지만 상수가 더 안전하기 때문에 유형 초기화를 하지 않고 유형만 미리 설정하고 빈 상태로 두기
+        if difference == 0 {
+            title = "Perfect!"
+            points += 100
+        } else if difference < 5 {
+            title = "You almost had it!"
+            if difference == 1 {
+                points += 50
+            }
+        } else if difference < 10 {
+            title = "Pretty good!"
+        } else {
+            title = "Not even close..."
+        }
+        
+        // 보너스 점수까지 추가 후에 점수 업데이트
         score += points // score = score + points와 같은 내용
         
         let message = "You scored \(points) points"
          
-        // 경고창 생성
-        let alert = UIAlertController(title: "Hello, World",
+        // 알림창 생성
+        let alert = UIAlertController(title: title,
                                       message: message,
                                       preferredStyle: .alert)
         
-        // 경고창 동작 생성
+        // 알림창 동작 생성
+        // 클로저 사용
+//        let action = UIAlertAction(title: "OK",
+//                                   style: .default,
+//                                   handler: { _ in
+//            self.startNewRound() // 버튼을 누르면 해당 동작 수행, 클로저 사용
+//        })
+        // 후행 클로저 사용
         let action = UIAlertAction(title: "OK",
-                                   style: .default,
-                                   handler: nil)
-        
-        // 경고창에 동작 추가
+                                   style: .default) { _ in
+            self.startNewRound()
+        }
+        // 알림창에 동작 추가
         alert.addAction(action)
-        // 버튼 누르면 경고창 띄우기
+        // 버튼 누르면 알림창 띄우기
         present(alert, animated: true, completion: nil)
-        // 새로운 라운드 시작
-        startNewRound()
     }
     
     @IBAction func sliderMoved(_ slider: UISlider) {
         currentValue = lroundf(slider.value) // lroundf: 소수를 정수로 반올림 하여 저장
+    }
+    
+    @IBAction func startNewGame() {
+        score = 0
+        round = 0 // startNewRound 함수에 round += 1이 있기 때문에 0으로 시작
+        startNewRound()
     }
     
     // 새로운 라운드 시작

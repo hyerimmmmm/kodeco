@@ -11,6 +11,8 @@ class ViewController: UIViewController {
     
     var currentValue: Int = 50
     var targetValue = 0
+    var score = 0
+    var round = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,10 +26,40 @@ class ViewController: UIViewController {
     @IBOutlet var slider: UISlider!
     // 타겟 레이블 스토리보드와 연결
     @IBOutlet var targetLabel: UILabel!
+    // 스코어 레이블 스토리보드와 연결
+    @IBOutlet var scoreLabel: UILabel!
+    // 라운드 레이블 스토리보드와 연결
+    @IBOutlet var roundLabel: UILabel!
     
     // 알림창
     @IBAction func showAlert() {
-        let message = "The value of the slider is: \(currentValue)" + "\nThe target value is: \(targetValue)"
+        // 타겟값과 제출값의 차이 구하기
+//        var difference: Int
+        
+//        if currentValue > targetValue {
+//            difference = currentValue - targetValue
+//        } else if targetValue > currentValue {
+//            difference = targetValue - currentValue
+//        } else {
+//            difference = 0
+//        }
+        
+        // 위 코드 단순하게 바꾸기
+//        var difference = currentValue - targetValue
+//        if difference < 0 {
+//            difference = currentValue - targetValue * -1 // 음수에 -1 곱해서 양수로 바꾸기, 이걸 더 단순하게 바꾸면 difference = -difference, 또는 difference *= -1
+//        }
+        
+        // abs 함수(음수를 양수로 바꾸는 함수) 사용해 위의 코드 더 단순하게 바꾸기
+        let difference = abs(currentValue - targetValue) // 다른 곳에서 값을 바꾸는 과정을 거칠 필요가 없기 때문에 위의 두 방법과 다르게 var가 아니라 let을 사용
+        
+        // 점수 계산
+        let points = 100 - difference
+        
+        // 점수 업데이트
+        score += points // score = score + points와 같은 내용
+        
+        let message = "You scored \(points) points"
          
         // 경고창 생성
         let alert = UIAlertController(title: "Hello, World",
@@ -53,6 +85,7 @@ class ViewController: UIViewController {
     
     // 새로운 라운드 시작
     func startNewRound() {
+        round += 1 // 라운드 증가
         targetValue = Int.random(in: 1...100)
         currentValue = 50
         slider.value = Float(currentValue)
@@ -62,6 +95,8 @@ class ViewController: UIViewController {
     // targetLabel 업데이트
     func updateLabels() {
         targetLabel.text = String(targetValue) // targetLabel의 text 값을 targetValue 문자열 타입으로 저장
+        scoreLabel.text = String(score) // scoreLabel의 text 값을 score 문자열 타입으로 저장
+        roundLabel.text = String(round)
     }
 
 

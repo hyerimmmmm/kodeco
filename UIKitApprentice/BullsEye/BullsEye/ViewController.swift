@@ -128,13 +128,17 @@ class ViewController: UIViewController {
         score = 0
         round = 0 // startNewRound 함수에 round += 1이 있기 때문에 0으로 시작
         startNewRound()
+        
+        // 애니메이션 추가
+        let transition = CATransition()
+        transition.type = CATransitionType.fade
+        transition.duration = 1
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
+        view.layer.add(transition, forKey: nil)
     }
     
     // 새로운 라운드 시작
     func startNewRound() {
-        // 애니메이션 추가
-        
-        
         round += 1 // 라운드 증가
         targetValue = Int.random(in: 1...100)
         currentValue = 50

@@ -17,6 +17,26 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // 슬라이더 디자인
+        let thumbImageNormal = UIImage(named: "SliderThumb-Normal")! // 이미지 변수에 저장
+        slider.setThumbImage(thumbImageNormal, for: .normal) // 저장된 이미지를 슬라이더 노말 상태 썸네일로 지정
+        
+        let thumbImageHightlighted = UIImage(named: "SliderThumb-Highlighted")! // 이미지 변수에 저장
+        slider.setThumbImage(thumbImageHightlighted, for: .highlighted) // 저장된 이미지를 슬라이더 하이라이트 상태 썸네일로 지정
+        
+        // 여백 설정
+        let insets = UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 14) // 여백 저장
+        
+        // 슬라이더 왼쪽(활성화된 부분) 배경 설정
+        let trackLeftImage = UIImage(named: "SliderTrackLeft")! // 이미지 저장
+        let trackLeftResizable = trackLeftImage.resizableImage(withCapInsets: insets) // 이미지 늘리기: 좌우 14 는 고정 하고 나머지 부분 늘리기 -> 이미지의 가운데 부분만 늘린다는 소리
+        slider.setMinimumTrackImage(trackLeftResizable, for: .normal) // 노말 상태의 슬라이드 왼쪽 배경 이미지 설정
+        
+        // 슬라이더 오른쪽(비활성화된 부분) 배경 설정
+        let trackRightImage = UIImage(named: "SliderTrackRight")!
+        let trackRightResizable = trackRightImage.resizableImage(withCapInsets: insets)
+        slider.setMaximumTrackImage(trackRightResizable, for: .normal) // 노말 상태의 슬라이드 오른족 배경 이미지 설정
+        
         // currentValue = lroundf(slider.value) // slider의 값을 반올림하여 정수로 저장
         // targetValue = Int.random(in: 1...100) // 정수 1에서 100까지 랜덤으로 선택해 저장
         startNewGame()

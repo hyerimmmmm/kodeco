@@ -132,6 +132,9 @@ class ViewController: UIViewController {
     
     // 새로운 라운드 시작
     func startNewRound() {
+        // 애니메이션 추가
+        
+        
         round += 1 // 라운드 증가
         targetValue = Int.random(in: 1...100)
         currentValue = 50

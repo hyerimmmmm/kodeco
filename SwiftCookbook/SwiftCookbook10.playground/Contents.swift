@@ -46,4 +46,51 @@ print(rectangle.description()) // "A rectangle with width 2.0 and height 2.0" �
 print(circle.description()) // "A circle with radius 2.0" 출력
 
 
-// MARK: - 
+// MARK: - switch 문에서 열거형 사용하기
+// 열거형 생성
+enum TrafficLight {
+    case red, yellow, green
+}
+
+// 변수에 열거형 안에 있는 케이스 yellow 저장
+let trafficLight = TrafficLight.yellow
+
+// switch 조건문 생성: 아래의 케이스 중 해당 변수와 조건이 일치하는(true) 케이스의 구문을 실행
+switch trafficLight {
+case .red:
+    print("Stop")
+case .yellow:
+    print("Caution")
+case .green:
+    print("Go")
+}
+// output: "Caution
+
+
+// where을 사용해 조건 추가하기
+// 열거형 생성
+enum Shapes {
+    case square(side: Double)
+    case rectangle(width: Double, height: Double)
+    case circle(radius: Double)
+}
+
+// 변수에 열거형 안에 있는 케이스 square 저장 및 해당 케이스가 가지고 있는 변수에 값 지정
+let shape = Shape.square(side: 2.0)
+
+// switch 조건문 생성: 아래의 케이스 중 해당 변수와 조건이 일치하며(ture), where을 통해 추가된 조건까지 일치하는 케이스의 구문을 실행
+switch shape {
+case .square(let side) where side > 2: // 변수 side를 가지고 있는 .square의 변수 값이 2보다 큰 경우
+    print("Large Square")
+case .square(let side) where side >= 2: // 변수 side를 가지고 있는 .square의 변수 값이 2보다 크거나 같은 경우
+    print("Small Square")
+case .rectangle(let width, let height):
+    print("Rectangle with width \(width) and height \(height)")
+case .circle(let radius):
+    print("Circle with radius \(radius)")
+default:
+    print("Unexpected Shape")
+}
+// output: "Small Square"
+
+

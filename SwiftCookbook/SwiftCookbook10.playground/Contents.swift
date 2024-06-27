@@ -94,3 +94,45 @@ default:
 // output: "Small Square"
 
 
+// MARK: - 반복문에서 열거형 사용하기
+// 열거형 생성
+enum CompassDirection: CaseIterable {
+    case north, south, east, west
+}
+
+// for-in 루프문에서 allCases를 사용해 열거형 케이스 모두 반복하기
+for direction in CompassDirection.allCases {
+    print(direction)
+}
+
+
+// MARK: - 클래스의 정의
+// 클래스 생성
+class MyClass {
+    // 필수요소1: 속성
+    // 비어 있는 변수 생성
+    var name: String
+    
+    // 필수요소2: 초기화
+    // name이라는 변수는 기본적으로 name이라는 값을 가지고 있다고 설정
+    init(name: String) {
+        self.name = name
+    }
+    
+    // 선택요소3: 메소드
+    // name이라는 변수를 출력하는 함수 생성
+    func printName() {
+        print(name)
+    }
+}
+
+// 클래스로 객체(인스턴스) 생성
+// 클래스가 가지고 있는 속성에 값을 할당해 변수에 집어넣어 동작 가능하도록 생성
+// 클래스는 설계도라서 스스로 가지고 있는 기능은 없지만,
+// 객체(인스턴스)는 설계도에 따라 조립되어 기능을 가지게 된 것
+
+// 설계도에 따라 조립
+let myObject = MyClass(name: "John")
+// 조립된 것이 기능 수행
+myObject.name // John이라는 값을 가지고 있음
+myObject.printName() // John이라는 값을 츌력할 수 있음

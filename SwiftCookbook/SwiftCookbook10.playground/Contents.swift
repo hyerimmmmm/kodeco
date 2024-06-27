@@ -1,46 +1,28 @@
 import UIKit
 
-// MARK: - 메소드 사용하기
-// 메소드 생성
-class MyClass {
-    var myProperty: Int
+// MARK: - 서브스크립트 사용하기
+class MyList {
+    // 빈 배열 생성
+    var items: [String]
     
-    init(myProperty: Int) {
-        self.myProperty = myProperty
+    // 초기화
+    init(items: [String]) {
+        self.items = items
     }
     
-    // 메소드 생성: 메소드란 클래스나 구조체 내에서 생성되고 사용되는 함수
-    func doubleMyProtperty() {
-        myProperty *= 2 // myProperty = myProperty * 2와 같은 내용
-    }
-}
-
-// 메소드 사용
-let myObject = MyClass(myProperty: 10) // 속성에 값 할당
-myObject.doubleMyProtperty() // 메소드 동작: myProperty의 값을 2배로 만들어 저장
-print(myObject.myProperty) // output: 20
-
-// 메소드 생성
-struct Point {
-    var x: Double
-    var y: Double
-    
-    init(x: Double, y: Double) {
-        self.x = x
-        self.y = y
-    }
-    
-    // 복잡한 메소드도 생성 가능
-    // 두 점과 점 사이의 거리를 구하는 메소드
-    func distance(to point: Point) -> Double {
-        let deltaX = x/*속성 x*/ - point.x/*매개변수의 속성 x*/
-        let deltaY = y - point.y
-        return sqrt(deltaX * deltaX + deltaY * deltaY)
+    // 객체(인스턴스)에 쉽게 접근하기 위해 서브스크립트 사용
+    subscript(index: Int) -> String { // 매개변수 index는 위치값을 가져오는 역할
+        get {
+            return items[index] // items 배열의 위치값을 입력하면, 그 위치값에 해당하는 문자열 값을 반환
+        }
+        set {
+            items[index] = newValue // items 배열의 위치값을 입력하고, 값을 입력하면 입력된 값으로 대체
+        }
     }
 }
 
-// 메소드 사용
-let point1 = Point(x: 0.0, y: 0.0)
-let point2 = Point(x: 3.0, y: 4.0)
-let distance = point1.distance(to: point2)
-print(distance)  // output: 5.0 / distance 메소드의 반환값에 사용된 sqrt은 제곱근을 반환하는 메소드이기 때문에, 반환값을 실제로 계산하면 25.0 이지만 제곱해서 25를 만들 수 있는 숫자인 5가 출력
+// 서브스크립트를 사용해 배열의 요소에 접근하기
+let myList = MyList(items: ["apple", "banana", "orange"]) // 속성값 입력
+print(myList[1]) // output: "banana" / 1번째 위치에 있는 문자열 값 호출
+myList[1] = "mango" // 1번째 위치에 있는 값 대체
+print(myList.items) // output: "apple", "mango", "orange"

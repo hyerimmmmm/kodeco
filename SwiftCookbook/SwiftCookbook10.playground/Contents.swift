@@ -136,3 +136,17 @@ let myObject = MyClass(name: "John")
 // 조립된 것이 기능 수행
 myObject.name // John이라는 값을 가지고 있음
 myObject.printName() // John이라는 값을 츌력할 수 있음
+
+
+// MARK: - 구조체의 정의
+// 구조체 생성
+struct Point {
+    var x: Double
+    var y: Double
+}
+
+// 객체 생성
+var myPoint = Point(x: 1.0, y: 2.0)
+// 객체 사용
+myPoint.x = 3.0 // 객체 속성 변경
+print(myPoint.x) // output: 3

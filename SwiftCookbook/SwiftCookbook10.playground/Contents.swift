@@ -1,28 +1,42 @@
 import UIKit
 
-// MARK: - 서브스크립트 사용하기
-class MyList {
-    // 빈 배열 생성
-    var items: [String]
+// MARK: - 상속 사용하기
+// 수퍼클래스(부모클래스) 생성
+class Vehicle {
+    // 고유 속성 생성
+    var wheels: Int
+    var weight: Double
+    var maxSpeed: Double
     
-    // 초기화
-    init(items: [String]) {
-        self.items = items
+    // 속성 초기화
+    init(wheels: Int, weight: Double, maxSpeed: Double) {
+        self.wheels = wheels
+        self.weight = weight
+        self.maxSpeed = maxSpeed
     }
     
-    // 객체(인스턴스)에 쉽게 접근하기 위해 서브스크립트 사용
-    subscript(index: Int) -> String { // 매개변수 index는 위치값을 가져오는 역할
-        get {
-            return items[index] // items 배열의 위치값을 입력하면, 그 위치값에 해당하는 문자열 값을 반환
-        }
-        set {
-            items[index] = newValue // items 배열의 위치값을 입력하고, 값을 입력하면 입력된 값으로 대체
-        }
+    // 고유 메소드 생성
+    func description() -> String {
+        return "A vehicle with \(wheels) wheels, weighs \(weight) kgs and has a maximum speed of \(maxSpeed) km/h."
     }
 }
 
-// 서브스크립트를 사용해 배열의 요소에 접근하기
-let myList = MyList(items: ["apple", "banana", "orange"]) // 속성값 입력
-print(myList[1]) // output: "banana" / 1번째 위치에 있는 문자열 값 호출
-myList[1] = "mango" // 1번째 위치에 있는 값 대체
-print(myList.items) // output: "apple", "mango", "orange"
+// 클래스 Vehicle를 상속받는 서브클래스 생성
+class Car: Vehicle {
+    // 고유 속성 생성
+    var numberOfDoors: Int // 클래스 내부에서 부르는 이름
+    
+    init(wheels: Int, weight: Double, maxSpeed: Double, doors: Int) { // doors는 numberOfDoors를 클래스 밖에서 부르는 이름
+        // 고유 속성 초기화
+        self.numberOfDoors = doors
+        // 수퍼클래스(부모클래스) 초기화
+        super.init(wheels: wheels, weight: weight, maxSpeed: maxSpeed)
+    }
+}
+
+// 서브클래스 객체(인스턴스) 생성
+let myCar = Car(wheels: 4, weight: 1000, maxSpeed: 200, doors: 4) // 수퍼클래스에 있던 속성들도 사용 가능
+
+// 서브클래스에서 수퍼클래스의 속성 및 메소드에 접근하기
+print(myCar.wheels) // output: 4
+print(myCar.description()) //output: "A vehicle with 4 wheels, weighs 1000 kgs and has a maximum speed of 200 km/h."

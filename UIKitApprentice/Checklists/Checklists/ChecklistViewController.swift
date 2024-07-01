@@ -8,31 +8,36 @@
 import UIKit
 
 class ChecklistViewController: UITableViewController {
-    // 데이터모델 인스턴스 생성
-    var row0item = ChecklistItem()
-    var row1item = ChecklistItem()
-    var row2item = ChecklistItem()
-    var row3item = ChecklistItem()
-    var row4item = ChecklistItem()
+    // 데이터모델 인스턴스 생성 배열 활용해 생성 -> 새로운 데이터 모델
+    var items = [ChecklistItem]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // 더미데이터
+        let item1 = ChecklistItem()
+        item1.text = "1"
+        items.append(item1)
         
+        let item2 = ChecklistItem()
+        item2.text = "2"
+        items.append(item2)
         
-        // 더미 데이터
-        row0item.text = "0"
+        let item3 = ChecklistItem()
+        item3.text = "3"
+        items.append(item3)
         
-        row1item.text = "1"
-        row1item.checked = true
+        let item4 = ChecklistItem()
+        item4.text = "4"
+        items.append(item4)
         
-        row2item.text = "2"
-        row2item.checked = true
+        let item5 = ChecklistItem()
+        item5.text = "5"
+        items.append(item5)
         
-        row3item.text = "3"
-        row3item.checked = true
-        
-        row4item.text = "4"
-        row4item.checked = true
+        let item6 = ChecklistItem()
+        item6.text = "6"
+        items.append(item6)
     }
     
     // MARK: - Table View Data Source
@@ -42,7 +47,8 @@ class ChecklistViewController: UITableViewController {
     
     // numberOfRowsInSection: 셀 개수를 정의하는 메소드
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5 // n개의 셀을 반환
+        // items 배열안의 요소만큼 셀 추가
+        return items.count
     }
     
     // cellForRowAt:특정 행에 어떤 셀이 들어갈지 정의
@@ -52,24 +58,10 @@ class ChecklistViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell/*재사용 가능한 셀 생성*/(withIdentifier: "ChecklistItem"/*셀 식별자, 해당 이름을 가진 셀을 행에 불러옴*/, for: indexPath/*현재 행의 위치에 맞는 셀을 가져옴*/)
         
-        // 더미 데이터
-        // <타입을 바꾸려는 값> as! <바꾸려는 타입>: 강제 캐스팅. 객체의 타입을 강제로 변환. 값과 타입이 일치하지 않으면 에러 발생
-        let label = cell.viewWithTag(1000) as! UILabel
+        let item = items[indexPath.row]
         
-        // 해당 행에 맞는 텍스트 출력
-        if indexPath.row == 0 {
-            label.text = row0item.text
-        } else if indexPath.row == 1 {
-            label.text = row1item.text
-        } else if indexPath.row == 2 {
-            label.text = row2item.text
-        } else if indexPath.row == 3 {
-            label.text = row3item.text
-        } else if indexPath.row == 4 {
-            label.text = row4item.text
-        }
-        
-        configureCheckmark(for: cell, at: indexPath)
+        configuarText(for: cell, with: item)
+        configureCheckmark(for: cell, with: item)
         return cell // 셀 반환
     }
     
@@ -79,44 +71,27 @@ class ChecklistViewController: UITableViewController {
         // 탭하면 엑세서리(체크마크로) 바뀌게
         if let cell = tableView.cellForRow(at: indexPath) {
             // 체크마크를 표시할지 말지
-            if indexPath.row == 0 {
-                row0item.checked.toggle()
-            } else if indexPath.row == 1 {
-                row1item.checked.toggle()
-            } else if indexPath.row == 2 {
-                row2item.checked.toggle()
-            } else if indexPath.row == 3 {
-                row3item.checked.toggle()
-            } else if indexPath.row == 4 {
-                row4item.checked.toggle()
-            }
-            configureCheckmark(for: cell, at: indexPath)
+            let item = items[indexPath.row]
+            item.checked.toggle()
+            
+            configureCheckmark(for: cell, with: item)
         }
-        
         tableView.deselectRow(at: indexPath, animated: true)
     }
+        
     
-    func configureCheckmark(for cell: UITableViewCell, at indexPath: IndexPath) {
-        var isChecked = false
-        
-        // 엑세서리 타입을 체크마크로 할지 말지 설정
-        if indexPath.row == 0 {
-            isChecked = row0item.checked
-        } else if indexPath.row == 1 {
-            isChecked = row1item.checked
-        } else if indexPath.row == 2 {
-            isChecked = row2item.checked
-        } else if indexPath.row == 3 {
-            isChecked = row3item.checked
-        } else if indexPath.row == 4 {
-            isChecked = row4item.checked
-        }
-        
-        if isChecked {
+    func configureCheckmark(for cell: UITableViewCell, with item: ChecklistItem) {
+
+        if item.checked {
             cell.accessoryType = .checkmark
         } else {
             cell.accessoryType = .none
         }
+    }
+    
+    func configuarText(for cell: UITableViewCell, with item: ChecklistItem) {
+        let label = cell.viewWithTag(1000) as! UILabel
+        label.text = item.text
     }
 }
 

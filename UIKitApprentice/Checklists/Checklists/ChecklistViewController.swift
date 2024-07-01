@@ -8,6 +8,19 @@
 import UIKit
 
 class ChecklistViewController: UITableViewController {
+    // 임시 데이터 모델
+    let row0text = "0"
+    let row1text = "1"
+    let row2text = "2"
+    let row3text = "3"
+    let row4text = "4"
+    
+    // 토글 온오프 컨트롤을 위한 변수
+    var row0checked = false
+    var row1checked = false
+    var row2checked = false
+    var row3checked = false
+    var row4checked = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +34,7 @@ class ChecklistViewController: UITableViewController {
     
     // numberOfRowsInSection: 셀 개수를 정의하는 메소드
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 100 // n개의 셀을 반환
+        return 5 // n개의 셀을 반환
     }
     
     // cellForRowAt:특정 행에 어떤 셀이 들어갈지 정의
@@ -36,18 +49,19 @@ class ChecklistViewController: UITableViewController {
         let label = cell.viewWithTag(1000) as! UILabel
         
         // 해당 행에 맞는 텍스트 출력
-        if indexPath.row % 5 == 0 {
-            label.text = "0"
-        } else if indexPath.row % 5 == 1 {
-            label.text = "1"
-        } else if indexPath.row % 5 == 2 {
-            label.text = "2"
-        } else if indexPath.row % 5 == 3 {
-            label.text = "3"
-        } else if indexPath.row % 5 == 4 {
-            label.text = "4"
+        if indexPath.row == 0 {
+            label.text = row0text
+        } else if indexPath.row == 1 {
+            label.text = row1text
+        } else if indexPath.row == 2 {
+            label.text = row2text
+        } else if indexPath.row == 3 {
+            label.text = row3text
+        } else if indexPath.row == 4 {
+            label.text = row4text
         }
         
+        configureCheckmark(for: cell, at: indexPath)
         return cell // 셀 반환
     }
     
@@ -56,15 +70,81 @@ class ChecklistViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // 탭하면 엑세서리(체크마크로) 바뀌게
         if let cell = tableView.cellForRow(at: indexPath) {
-            if cell.accessoryType == .none {
-                cell.accessoryType = .checkmark
-                print("test")
-            } else {
-                cell.accessoryType = .none
+            // 토글 사용안하고 작성
+//            if cell.accessoryType == .none {
+//                cell.accessoryType = .checkmark
+//                print("test")
+//            } else {
+//                cell.accessoryType = .none
+//            }
+            
+            // 간소화하기 전
+            // 토글 사용해서 작성
+//            var isChecked = false
+//            
+//            // toggle 메소드를 사용해 선택된 행 Bool 값 변경
+//            // 체크마크를 내보낼지 말지 설정
+//            if indexPath.row == 0 { // 만약 선택된 행이 0번째 행이면
+//                row0checked.toggle() // row0checked의 값을 반대로 바꾸고
+//                isChecked = row0checked // isChecked의 값을 row0checked로 변경
+//            } else if indexPath.row == 1 {
+//                row1checked.toggle()
+//                isChecked = row1checked
+//            } else if indexPath.row == 2 {
+//                row2checked.toggle()
+//                isChecked = row2checked
+//            } else if indexPath.row == 3 {
+//                row3checked.toggle()
+//                isChecked = row3checked
+//            } else if indexPath.row == 4 {
+//                row4checked.toggle()
+//                isChecked = row4checked
+//            }
+//            // isChecked 상태에 따라 체크마크 온오프
+//            if isChecked {
+//                cell.accessoryType = .checkmark
+//            } else {
+//                cell.accessoryType = .none
+//            }
+            // 위의 코드 간소화
+            if indexPath.row == 0 {
+                row0checked.toggle()
+            } else if indexPath.row == 1 {
+                row1checked.toggle()
+            } else if indexPath.row == 2 {
+                row2checked.toggle()
+            } else if indexPath.row == 3 {
+                row3checked.toggle()
+            } else if indexPath.row == 4 {
+                row4checked.toggle()
             }
+            configureCheckmark(for: cell, at: indexPath)
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func configureCheckmark(for cell: UITableViewCell, at indexPath: IndexPath) {
+        var isChecked = false
+        
+        // 엑세서리 타입을 체크마크로 할지 말지 설정
+        if indexPath.row == 0 {
+            isChecked = row0checked
+        } else if indexPath.row == 1 {
+            isChecked = row1checked
+        } else if indexPath.row == 2 {
+            isChecked = row2checked
+        } else if indexPath.row == 3 {
+            isChecked = row3checked
+        } else if indexPath.row == 4 {
+            isChecked = row4checked
+        }
+        
+        if isChecked {
+            cell.accessoryType = .checkmark
+        } else {
+            cell.accessoryType = .none
+        }
     }
 
 

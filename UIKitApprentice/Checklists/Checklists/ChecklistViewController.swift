@@ -81,6 +81,16 @@ class ChecklistViewController: UITableViewController {
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    // 스와이프 삭제 버튼
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle,/*스와이프 삭제 자동 활성화 되는 메소드*/ forRowAt indexPath: IndexPath) {
+        // 데이터 모델에서 항목 삭제
+        items.remove(at: indexPath.row)
+        
+        // 행에서 항목 삭제
+        let indexPaths = [indexPath] // 임시 배열 생성
+        tableView.deleteRows(at: indexPaths, with: .automatic) // 애니메이션 사용해 행 삭제
+    }
 
     func configureCheckmark(for cell: UITableViewCell, with item: ChecklistItem) {
 

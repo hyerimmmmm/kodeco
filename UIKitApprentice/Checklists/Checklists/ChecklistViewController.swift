@@ -13,6 +13,9 @@ class ChecklistViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // 네비게이션 타이틀 크게 만들기
+        navigationController?.navigationBar.prefersLargeTitles = true
 
         // 더미데이터
         let item1 = ChecklistItem()
@@ -78,20 +81,33 @@ class ChecklistViewController: UITableViewController {
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
-        
-    
+
     func configureCheckmark(for cell: UITableViewCell, with item: ChecklistItem) {
 
         if item.checked {
-            cell.accessoryType = .checkmark
-        } else {
             cell.accessoryType = .none
+        } else {
+            cell.accessoryType = .checkmark
         }
     }
     
     func configuarText(for cell: UITableViewCell, with item: ChecklistItem) {
         let label = cell.viewWithTag(1000) as! UILabel
         label.text = item.text
+    }
+    
+    // MARK: - Actions
+    @IBAction func addItem() {
+        let newRowIndex = items.count // item이 추가될 때마다 행이 자동으로 추가도리 수 있도록 변수 생성
+        
+        let item = ChecklistItem() // 새로운 체크리스트 객체 생성
+        item.text = "I am a new row" // 더미 텍스트
+        items.append(item) // 데이터모델 items 배열에 새로 생성된 item 추가
+
+        
+        let indexPath = IndexPath(row: newRowIndex, section: 0) // 갱신된 newRowIndex 값을 저장
+        let indexPaths = [indexPath] // 위에 저장한 값을 임시 배열로 생성
+        tableView.insertRows/*테이블뷰에 행을 추가하는 메소드*/(at/*추가하려는 행*/: indexPaths, with/*애니메이션*/: .automatic)
     }
 }
 

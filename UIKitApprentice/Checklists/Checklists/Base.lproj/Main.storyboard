@@ -51,7 +51,7 @@
             </objects>
             <point key="canvasLocation" x="1863.3587786259541" y="-27.464788732394368"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Add Item-->
         <scene sceneID="HjH-8B-yfS">
             <objects>
                 <tableViewController id="VJ8-Kd-LjG" sceneMemberID="viewController">
@@ -74,7 +74,10 @@
                             <outlet property="delegate" destination="VJ8-Kd-LjG" id="lMc-yX-4p4"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="czg-0k-sTL"/>
+                    <navigationItem key="navigationItem" title="Add Item" id="czg-0k-sTL">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="bNa-vr-sSV"/>
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="sDx-3B-qn2"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EVp-8Z-kEL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

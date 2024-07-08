@@ -75,8 +75,16 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Add Item" id="czg-0k-sTL">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="bNa-vr-sSV"/>
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="sDx-3B-qn2"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="bNa-vr-sSV">
+                            <connections>
+                                <action selector="cancel" destination="VJ8-Kd-LjG" id="0Bb-RP-pGn"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="sDx-3B-qn2">
+                            <connections>
+                                <action selector="done" destination="VJ8-Kd-LjG" id="re8-cC-dAx"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EVp-8Z-kEL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

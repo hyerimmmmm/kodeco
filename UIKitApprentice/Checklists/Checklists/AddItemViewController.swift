@@ -23,4 +23,10 @@ class AddItemViewController: UITableViewController {
     @IBAction func done() {
         navigationController?.popViewController(animated: true)
     }
+    
+    // MARK: - Table View Delegates
+    // 셀을 탭했을 때 색이 변하지 않도록 하기
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        return nil // 객체가 선택되지 않도록 nil값 반환
+    }
 }

@@ -73,6 +73,9 @@
                                                     <rect key="frame" x="20" y="10.999999999999998" width="353" height="22.333333333333329"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                                                    <connections>
+                                                        <action selector="done" destination="VJ8-Kd-LjG" eventType="editingDidEndOnExit" id="I0C-oZ-z76"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>

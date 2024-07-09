@@ -23,6 +23,7 @@ class AddItemViewController: UITableViewController {
     }
     
     @IBAction func done() {
+        print("Contents of the text field: \(textField.text!)")
         navigationController?.popViewController(animated: true)
     }
     

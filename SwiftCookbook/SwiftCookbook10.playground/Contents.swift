@@ -1,22 +1,29 @@
 import UIKit
 
 
-// MARK: - 키 경로 사용하기
-// 구조체 생성
-struct Person {
-    var name: String
-    var address: Address
+// MARK: - 정적 함수와 속성의 이해
+
+// 정적 함수 사용 예시
+struct Math {
+    static func square(number: Int) -> Int {
+        return number * number
+    }
 }
 
-struct Address {
-    var street: String
-    var city: String
+let result = Math.square(number: 4) // static을 사용하지 않으면 인스턴스를 생성해야지만 클래스나 구조체 안의 함수나 속성 호출 가능
+print(result) // output: 16
+
+// 정적 속성 사용 예시
+class Counter {
+    static var count = 0
+    
+    init() {
+        Counter.count += 1
+    }
 }
 
-// 인스턴스 생성
-let person = Person(name: "John Doe", address: Address(street: "1 Main St", city: "San Francisco"))
-
-// 키 경로 변수에 저장
-let streetKeyPath = \Person.address.street
-// 키 경로에 대한 값에 접근
-let street = person[keyPath: streetKeyPath] // output: "1 Main St" / person이라는 인스턴스가 키 경로 위치에 가지고 있는 값에 접근
+let c1 = Counter()
+print(Counter.count) // output: 1
+let c2 = Counter()
+print(Counter.count) // output: 2
+// 모든 인스턴스가 속성을 공유하기 때문에 처음 호출 되었을 때 변경된 값이 그 다음에 호출 되었을 때에 적용되어서 값 변경

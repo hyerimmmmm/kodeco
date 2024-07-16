@@ -7,6 +7,14 @@
 
 import UIKit
 
+// 델리게이트
+protocol AddItemViewControllerDelegate: AnyObject {
+    // 취소를 눌렀을 때 호출되는 메서드
+    func addItemViewControllerDidCancle(_ controller: AddItemViewController)
+    // 추가를 눌렀을 때 호출되는 메서드
+    func addItemViewController(_ controller: AddItemViewController, didFinishAdding item/*새 ChecklistItem 객체 전달*/: ChecklistItem)
+}
+
 class AddItemViewController: UITableViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {

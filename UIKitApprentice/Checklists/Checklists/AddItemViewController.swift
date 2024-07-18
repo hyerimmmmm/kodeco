@@ -26,14 +26,20 @@ class AddItemViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
     @IBOutlet weak var textField: UITextField!
     
+    // 델리게이트는 보통 weak를 사용해 선언
+    weak var delegate: AddItemViewControllerDelegate? // 델리게이트는 선택사항이기 때문에 비어있을 수 있으니까 옵셔널 처리
+    
     // MARK: - Actions
     @IBAction func cancel() {
-        navigationController?.popViewController(animated: true)
+        // delegate가 있다면 나(cancle)를 매개변수로 메서드 실행
+        delegate?.addItemViewControllerDidCancle(self)
     }
     
     @IBAction func done() {
-        print("Contents of the text field: \(textField.text!)")
-        navigationController?.popViewController(animated: true)
+        let item = ChecklistItem()
+        item.text = textField.text!
+        
+        delegate?.addItemViewController(self, didFinishAdding: item)
     }
     
     // MARK: - Table View Delegates

@@ -1,11 +1,10 @@
 import UIKit
 
-// MARK: - Swift 제네릭과 함께 연관된 타입 사용하기
+// MARK: - Swift 제네릭에서 where 사용하기
 
 // 프로토콜 정의
 protocol Container {
-    associatedtype Item // 연관된 타입 Item 정의
-    // 위에서 정의한 연관된 타입 Item을 사용해 임시로 타입을 정의해 변수/함수 정의
+    associatedtype Item
     var items: [Item] { get set }
     mutating func append(_ item: Item)
     mutating func pop() -> Item
@@ -27,29 +26,38 @@ struct Stack<T>: Container { // 제네릭으로 타입 매개변수 T 생성
     }
 }
 
-func printAndPop<U: Container>(container: inout U) {
-    for _ in 0...container.count where container.count > 0 { // 0 부터 container 매개변수의 개수 까지의 숫자를 넣어서 루프 돌리기
-        print(container.pop()) // pop 함수를 통해 삭제될 값 출력
+func popAllAndTestMatch<C1: Container, C2: Container>(_ someContainer: inout C1, _ anotherContainer: inout C2) -> Bool where C1.Item == C2.Item, C1.Item: Equatable { // 2개의 조건 설정: 조건1 - 두 매개변수의 Item은 타입이 동일해야 한다, 조건2 - 매개변수 C1의 Item은 Equatable 프로토콜을 준수해야 한다
+    if someContainer.count != anotherContainer.count { // 두 매개변수가 가지고 있는 값의 개수가 동일하지 않을 경우 false 반환
+        return false
     }
+
+    for _ in 0..<someContainer.count {
+        if someContainer.pop() != anotherContainer.pop() { // 두 매개변수가 가지고 있는 값 중, 삭제될 마지막 값이 같지 않다면 false 반환
+            return false
+        }
+    }
+
+    return true // 위의 조건 중 무엇도 만족되지 않아(두 매개변수의 값이 동일하고, 두 매개변수가 삭제하는 값이 매번 동일한 경우) 반환할 값이 없을 경우 true 반환
 }
 
-//사용 및 출력
-var intStack = Stack<Int>() // 타입 매개변수를 Int로 설정(Item -> T -> Int)
-intStack.append(1)
-intStack.append(2)
-intStack.append(3)
-printAndPop(container: &intStack)
-// 출력
-// 3
-// 2
-// 1
+// 사용 및 출력
+// 같은 값을 가지고 있는 배열 두 개 생성
+var stackOfStrings1 = Stack<String>()
+stackOfStrings1.append("uno")
+stackOfStrings1.append("dos")
+stackOfStrings1.append("tres")
 
-var stringStack = Stack<String>() // 타입 매개변수를 String로 설정(Item -> T -> String)
-stringStack.append("Alice")
-stringStack.append("Bob")
-stringStack.append("Candice")
-printAndPop(container: &stringStack)
-// 출력
-// Candice
-// Bob
-// Alice
+var stackOfStrings2 = Stack<String>()
+stackOfStrings2.append("uno")
+stackOfStrings2.append("dos")
+stackOfStrings2.append("tres")
+
+// 위의 배열을 매개변수로 함수 실행
+// 두 배열이 가지고 있는 값과 값의 개수가 같기 때문에 true에 해당하는 문구 출력
+if popAllAndTestMatch(&stackOfStrings1, &stackOfStrings2) { // inout 매개변수 이기 때문에 앞에 & 붙이기
+    print("All items match.")
+} else {
+    print("Not all items match.")
+}
+
+// 출력결과: All items match.

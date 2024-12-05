@@ -1,30 +1,13 @@
-// Swift Review
+// 배열
 
-// 7. 최근 검색어
-var searchList: [String] = []
+// 8. 2차원 배열
 
-print(searchList)
+let sample = [[1, 2, 3], [4, 5, 6], [7, 8, 9, 10]]
 
-searchList.insert("원피스", at: 0)
-searchList.insert("신발", at: 0)
-searchList.insert("양말", at: 1)
+sample.count
+sample[2]
 
-searchList.append("바지")
+let result = sample[2]
 
-searchList.append(contentsOf: ["시계", "목걸이", "반지"])
-
-print(searchList)
-
-print(searchList[2])
-
-searchList[6] = "팔찌"
-
-print(searchList)
-
-searchList.remove(at: 4)
-
-print(searchList)
-
-searchList.removeAll()
-
-print(searchList)
+result[2]
+sample[2][2]

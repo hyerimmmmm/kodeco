@@ -1,4 +1,4 @@
-// 함수
+// 함수 & 매개변수
 
 // 1. 4의 배수와 6의 배수를 찾는 기능
 
@@ -26,7 +26,7 @@ findNumber()
 // 2. 우수 학생을 선정하는 기능
 func bestScore() {
     let score = [100, 242, 123, 164, 246, 234, 300, 12, 44, 290]
-    var best = 1
+    var best = 0
     
     for i in score {
         switch i {
@@ -45,3 +45,28 @@ func bestScore() {
 
 bestScore()
 
+
+// 3. 웰컴 메시지 만들기
+func welcomeMessage(name: String) {
+    print("안녕하세요! \(name)님, 반갑습니다.")
+}
+
+welcomeMessage(name: "고래밥")
+welcomeMessage(name: "상어밥")
+welcomeMessage(name: "붕어밥")
+
+
+// 4. 거스름돈 계산기
+func changeProgram(pay: Int, price: Int) {
+    let change = pay - price
+    
+    var fiveThousand = change / 5000
+    var oneThousand = (change % 5000) / 1000
+    var fiveHundred = ((change % 5000) % 1000) / 500
+    var oneHoundred = (((change % 5000) % 1000) % 500) / 100
+
+    print("거스름돈 \(change) 원을, 5000원 \(fiveThousand) 장, 1000원 \(oneThousand) 장, 500원 \(fiveHundred) 개, 100원 \(oneHoundred) 개로 거슬러 드리겠습니다.")
+}
+
+changeProgram(pay: 50000, price: 23450)
+changeProgram(pay: 40000, price: 1800)

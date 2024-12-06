@@ -70,3 +70,14 @@ func changeProgram(pay: Int, price: Int) {
 
 changeProgram(pay: 50000, price: 23450)
 changeProgram(pay: 40000, price: 1800)
+
+
+// 5. 물 권장 섭취량 계산기
+func water(height: Double, weight: Double) {
+    let water = (height + weight) / 100
+
+    print("키 \(height), 몸무게 \(weight) 인 경우 물 권장 섭취량은 \(water) 리터 입니다.")
+}
+
+water(height: 170.0, weight: 60.0)
+water(height: 190.0, weight: 80.0)

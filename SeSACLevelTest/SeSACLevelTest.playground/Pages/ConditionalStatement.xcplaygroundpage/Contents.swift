@@ -9,6 +9,13 @@ if gender {
     print("저는 남성입니다.")
 }
 
+switch gender {
+case true:
+    print("저는 여성입니다.")
+case false:
+    print("저는 남성입니다.")
+}
+
 
 // 수화물 요금 안내
 let weight = Int.random(in: 1...20)
@@ -81,6 +88,19 @@ if order >= 0 && order < 5 {
 } else if order >= 20 {
     print("쿠폰 5만원 지급!")
 } else {
+    print("오류 발생! 잠시 후 다시 시도해주세요.")
+}
+
+switch order {
+case 0...4:
+    print("쿠폰 5천원 지급")
+case 5...9:
+    print("쿠폰 만원 지급!")
+case 10...19:
+    print("쿠폰 2만원 지급!")
+case 20...:
+    print("쿠폰 5만원 지급!")
+default:
     print("오류 발생! 잠시 후 다시 시도해주세요.")
 }
 

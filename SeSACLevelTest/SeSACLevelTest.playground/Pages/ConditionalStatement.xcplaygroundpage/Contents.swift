@@ -83,3 +83,34 @@ if order >= 0 && order < 5 {
 } else {
     print("오류 발생! 잠시 후 다시 시도해주세요.")
 }
+
+// BMI 계산기
+let personWeight = Double.random(in: 30...110)
+let personHeight = Double.random(in: 1.4...1.9)
+
+let bmi = personWeight / (personHeight * personHeight)
+
+if bmi <= 18.5 {
+    print("저체중입니다.")
+} else if bmi > 18.5 && bmi < 23 {
+    print("정상 체중입니다.")
+} else if bmi >= 23 && bmi < 25 {
+    print("과체중입니다.")
+} else if bmi >= 25 {
+    print("비만입니다.")
+} else {
+    print("오류입니다.")
+}
+
+switch bmi {
+case ..<18.5:
+    print("저체중입니다.")
+case 18.5..<23:
+    print("정상 체중입니다.")
+case 23..<25:
+    print("과체중입니다.")
+case 25...:
+    print("비만입니다.")
+default:
+    print("오류입니다.")
+}

@@ -68,3 +68,18 @@ if blackList.contains(userNickname) {
 } else {
     print("해당 닉네임은 사용 가능한 닉네임입니다.")
 }
+
+// 쿠폰 서비스
+let order = Int.random(in: 0...30)
+
+if order >= 0 && order < 5 {
+    print("쿠폰 5천원 지급!")
+} else if order >= 5 && order < 10 {
+    print("쿠폰 만원 지급!")
+} else if order >= 10 && order < 20 {
+    print("쿠폰 2만원 지급!")
+} else if order >= 20 {
+    print("쿠폰 5만원 지급!")
+} else {
+    print("오류 발생! 잠시 후 다시 시도해주세요.")
+}

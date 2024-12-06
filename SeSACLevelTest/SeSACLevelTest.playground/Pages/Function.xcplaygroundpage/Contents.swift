@@ -21,3 +21,27 @@ func findNumber() {
 }
 
 findNumber()
+
+
+// 2. 우수 학생을 선정하는 기능
+func bestScore() {
+    let score = [100, 242, 123, 164, 246, 234, 300, 12, 44, 290]
+    var best = 1
+    
+    for i in score {
+        switch i {
+        case 0..<200:
+            print("\(i)점으로 아쉽지만 우수 학생에 선발되지 못했습니다.")
+        case 200...300:
+            best += 1
+            print("축하합니다! \(i)점으로 우수 학생에 선발되었습니다.")
+        default:
+            print("다시 확인해보세요.")
+        }
+    }
+    
+    print("우수 학생은 총 \(best)명입니다.")
+}
+
+bestScore()
+
